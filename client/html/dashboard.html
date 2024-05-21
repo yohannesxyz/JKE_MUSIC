@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App Dashboard</title>
+    <link rel="stylesheet" href="../css/dash.css">
+    <link rel="icon" href="../images/music-logo.jpg" type="image/x-icon">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <!-- Replace with your logo image -->
+            <img src="../images/music-logo.jpg" alt="Logo" class="logo">
+            <button class="logout-btn">Logout</button>
+        </header>
+        <main>
+            <section class="songs-section">
+                <h2>Songs You May Be Interested In</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Release Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>See You Again</td>
+                            <td>2020-01-01</td>
+                            <td><button class="add-btn">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Baby Baby</td>
+                            <td>2019-01-01</td>
+                            <td><button class="add-btn">+</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="playlist-section">
+                <h2>Your Playlist</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Baby Baby</td>
+                            <td><button class="remove-btn">-</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="player-controls">
+                <div class="controls">
+                    <button class="control-btn" id="prev"><img src="../images/previous.png" alt="Previous"></button>
+                    <button class="control-btn" id="pause"><img src="../images/play.png" alt="Pause"></button>
+                    <button class="control-btn" id="next"><img src="../images/next-button.png" alt="Next"></button>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                    <span class="song-title">Baby Baby</span>
+                </div>
+                <button class="control-btn" id="switch-mode"><img src="../images/shuffle.png" alt="Switch Mode"></button>
+            </section>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+
