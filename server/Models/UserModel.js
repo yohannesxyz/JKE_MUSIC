@@ -1,9 +1,11 @@
 let userData = [
-    {"id":1,"userName":"eric","password":"1234","playlist":[],"token":""},
-    {"id":2,"userName":"kirubel","password":"1234","playlist":[],"token":""},
-    {"id":3,"userName":"yohannes","password":"1234","playlist":[],"token":""}
+    {"id":1,"username":"eric","password":"1234","playlist":[],"token":""},
+    {"id":2,"username":"kirubel","password":"1234","playlist":[],"token":""},
+    {"id":3,"username":"yohannes","password":"1234","playlist":[],"token":""}
 ];
-let ID=userData[userData.length].id++;
+let lastUser=userData[userData.length-1].id;
+let ID=lastUser;
+
 
 
 module.exports = class{
@@ -17,15 +19,18 @@ module.exports = class{
 
 
     save(){
-        this.id=ID++;
+        this.id=++ID;
+        this.token=Date.now()+"_"+this.username;
         userData.push(this);
         return this;
     }
 
     static login(username,password){
+        console.log(username,password)
         let userIndex = userData.findIndex(user => user.username == username && user.password === password);
         if(userIndex>=0){
-            userData[userIndex].token=Date.now()+"_"+userData[userIndex].userName;
+            userData[userIndex].token=Date.now()+"_"+userData[userIndex].username;
+            return userData[userIndex];
         }
         else{
             throw new Error("There is no user with that user name and password!");
@@ -36,6 +41,7 @@ module.exports = class{
         let userIndex = userData.findIndex(user => user.id==id);
         if(userIndex>=0){
             userData[userIndex].token="";
+            return 'user logged out';
         }
         else{
 throw new error("There is no user with id: "+id);
