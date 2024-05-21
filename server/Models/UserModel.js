@@ -26,7 +26,6 @@ module.exports = class{
     }
 
     static login(username,password){
-        console.log(username,password)
         let userIndex = userData.findIndex(user => user.username == username && user.password === password);
         if(userIndex>=0){
             userData[userIndex].token=Date.now()+"_"+userData[userIndex].username;
