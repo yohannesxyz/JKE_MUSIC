@@ -1,0 +1,22 @@
+GET http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+   "username":"yohannes",
+   "password":"1234"
+}
+###
+POST http://localhost:3000/user/create-user
+Content-Type: application/json
+
+{
+   "username":"abebe",
+   "password":"1234"
+}
+###
+GET http://localhost:3000/user/logout
+Content-Type: application/json
+
+{
+   "id":"3"
+}
