@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music App Dashboard</title>
-    <link rel="stylesheet" href="../css/dash.css">
-    <link rel="icon" href="../images/music-logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="/css/dash.css">
+    <link rel="icon" href="/images/music-logo.jpg" type="image/x-icon">
+    <script src="/js/signInEvent.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="dashboard-container">
         <header>
-            <!-- Replace with your logo image -->
-            <img src="../images/music-logo.jpg" alt="Logo" class="logo">
-            <button class="logout-btn">Logout</button>
+            
+            <img src="/images/music-logo.jpg" alt="Logo" class="logo">
+
+            <button type="submit" id="submitBtn">SIGN IN</button>
+            <button type="submit" class="logout-btn" id="logoutbtn">Logout</button>
+
+
         </header>
         <main>
             <section class="songs-section">
@@ -63,19 +68,17 @@
             </section>
             <section class="player-controls">
                 <div class="controls">
-                    <button class="control-btn" id="prev"><img src="../images/previous.png" alt="Previous"></button>
-                    <button class="control-btn" id="pause"><img src="../images/play.png" alt="Pause"></button>
-                    <button class="control-btn" id="next"><img src="../images/next-button.png" alt="Next"></button>
+                    <button class="control-btn" id="prev"><img src="/images/previous.png" alt="Previous"></button>
+                    <button class="control-btn" id="pause"><img src="/images/play.png" alt="Pause"></button>
+                    <button class="control-btn" id="next"><img src="/images/next-button.png" alt="Next"></button>
                 </div>
                 <div class="progress-container">
                     <div class="progress-bar"></div>
                     <span class="song-title">Baby Baby</span>
                 </div>
-                <button class="control-btn" id="switch-mode"><img src="../images/shuffle.png" alt="Switch Mode"></button>
+                <button class="control-btn" id="switch-mode"><img src="/images/shuffle.png" alt="Switch Mode"></button>
             </section>
         </main>
     </div>
-    <script src="dashboard.js"></script>
-</body>
-</html>
-
+  
+ipt>

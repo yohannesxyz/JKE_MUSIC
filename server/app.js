@@ -1,8 +1,24 @@
-const Express = require('express');
+const express = require('express');
 const UserRouter=require('./Routes/UserRouter');
 const MusicRouter=require('./Routes/MusicRouter');
-const app=Express();
-app.use(Express.json());
+const path = require("path");
+const cors = require('cors');
+const app = express();
+
+
+app.use(cors());
+
+
+app.use(express.json());
+
+app.use('/dashboard', (req,res,next) => {
+    res.sendFile(path.join(__dirname,'..','client','html','dashboard.html'))
+})
+
+app.use('/css', express.static(path.join(__dirname,'..','client','css')))
+app.use('/js', express.static(path.join(__dirname,'..','client','js')))
+app.use('/images', express.static(path.join(__dirname,'..','client','images')))
+app.use('/songs', express.static(path.join(__dirname,'resources','songs')))
 app.use('/user',UserRouter);
 app.use('/music',MusicRouter);
 

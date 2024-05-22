@@ -1,10 +1,11 @@
-GET http://localhost:3000/user/login
+POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
    "username":"yohannes",
    "password":"1234"
 }
+
 ###
 POST http://localhost:3000/user/create-user
 Content-Type: application/json
@@ -13,10 +14,42 @@ Content-Type: application/json
    "username":"abebe",
    "password":"1234"
 }
+
+
 ###
-GET http://localhost:3000/user/logout
+POST http://localhost:3000/user/logout
 Content-Type: application/json
 
 {
    "id":"3"
 }
+
+
+
+###
+GET http://localhost:3000/music
+Authorization: "www"
+
+###
+GET http://localhost:3000/music/3
+Authorization: "www"
+
+###
+GET http://localhost:3000/music/playlist
+Authorization: "www"
+
+
+###
+POST http://localhost:3000/music/playlist
+Content-Type: application/json
+Authorization: "www"
+
+{
+
+    "id": 4
+    
+}
+
+###
+DELETE http://localhost:3000/music/playlist/2
+Authorization: "www"

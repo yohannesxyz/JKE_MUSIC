@@ -1,15 +1,13 @@
-let userData = [
-    {"id":1,"username":"eric","password":"1234","playlist":[],"token":""},
-    {"id":2,"username":"kirubel","password":"1234","playlist":[],"token":""},
-    {"id":3,"username":"yohannes","password":"1234","playlist":[],"token":""}
-];
-let lastUser=userData[userData.length-1].id;
+let userData = require('../Database/Users');
+
+let lastUser = userData[userData.length-1].id;
+
 let ID=lastUser;
 
 
 
-module.exports = class{
-    constructor(id,username,password,playlist,token) {
+module.exports = class {
+ructor(id,username,password,playlist,token) {
         this.id=id;
         this.username=username;
         this.password=password;
