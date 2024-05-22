@@ -8,6 +8,7 @@ exports.getAll = (req, res) => {
 
 exports.getPlaylist = ( req, res, next ) => {
     
+    
     try {
         const token = req.headers.authorization;
         
@@ -15,7 +16,8 @@ exports.getPlaylist = ( req, res, next ) => {
             return res.status(400).json({ error: 'Authorization header is missing' });
         }
 
-        const playlist = Music.getPlaylist(JSON.parse(token));
+        
+        const playlist = Music.getPlaylist(token);
 
         if (!playlist) {
             return res.status(404).json({ error: 'Playlist not found' });

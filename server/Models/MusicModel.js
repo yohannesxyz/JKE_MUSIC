@@ -23,7 +23,7 @@ module.exports = class Music {
         if (authUser) {
             return musicDb.filter(mu => authUser.playlist.includes(mu.id));
         } else {
-            throw new Error(`No music found with Id: ${id}`);
+            throw new Error(`No music found with Id:`+userData[0].id);
         }
     }
 

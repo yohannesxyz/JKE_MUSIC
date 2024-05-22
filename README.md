@@ -57,3 +57,15 @@ return the users playlist
 }
 
 }
+thins to be done{
+
+add to plylist
+remove from playlist
+play
+icons{
+    shuffle
+    repeat playlist
+    repeat song
+    shuffle off
+
+}
