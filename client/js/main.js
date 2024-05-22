@@ -130,7 +130,7 @@ function removeFromPlaylist(id) {
     })
     .then(response => response.json())
     .then(() => {
-        loadPlaylist(); // Refresh the playlist
+        loadPlaylist(); 
     });
 }
 
