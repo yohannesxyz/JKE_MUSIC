@@ -19,7 +19,9 @@ module.exports = class Music {
 
     static getPlaylist(userToken) {
         let authUser = userData.find(user => user.token == userToken);
-       
+        
+            // console.log(userData[0])
+
         if (authUser) {
             return musicDb.filter(mu => authUser.playlist.includes(mu.id));
         } else {
@@ -38,17 +40,22 @@ module.exports = class Music {
 
     static addToPlaylist(id, userToken) {
 
+        
         let authUser = userData.find(user => user.token == userToken);
         
 
        
-        const music = musicDb.find(b => b.id === id);
+        const music = musicDb.find(b => b.id == id);
+
+        
 
         if (music) {
 
             if (authUser) {
 
-                userData.find(user => user.token == userToken).playlist.push(id);
+                userData.find(user => user.token == userToken).playlist.push(parseInt(id));
+                
+               
                 return music;
 
             }else {
@@ -66,8 +73,8 @@ module.exports = class Music {
 
         let authUser = userData.find(user => user.token == userToken);
 
-        const index = authUser.playlist.findIndex(b => b === id);
-
+        const index = authUser.playlist.findIndex(b => b == id);
+        
         if (index > -1) {
             
             authUser.playlist.splice(index, 1);

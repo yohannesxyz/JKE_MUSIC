@@ -36,8 +36,8 @@ exports.addToPlaylist = (req, res, next) => {
         if (!token) {
             return res.status(400).json({ error: 'Authorization header is missing' });
         }
-  
-    res.status(200).json(Music.addToPlaylist(req.body.id,JSON.parse(token)));
+      
+    res.status(200).json(Music.addToPlaylist(req.body.id,token));
 
 }
 
@@ -56,8 +56,8 @@ exports.deleteById = (req, res, next) => {
         if (!token) {
             return res.status(400).json({ error: 'Authorization header is missing' });
         }
-        
-    res.status(200).json(Music.deleteFromPlaylist(parseInt(req.params.id), JSON.parse(token)));
+     
+    res.status(200).json(Music.deleteFromPlaylist(req.params.id, token));
 }
 
 exports.updateById = (req, res, next) => {

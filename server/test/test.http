@@ -2,7 +2,7 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-   "username":"yohannes",
+   "username":"eric",
    "password":"1234"
 }
 
@@ -36,17 +36,17 @@ Authorization: "www"
 
 ###
 GET http://localhost:3000/music/playlist
-Authorization: "www"
+Authorization: "1716411376848_eric"
 
 
 ###
 POST http://localhost:3000/music/playlist
 Content-Type: application/json
-Authorization: "www"
+Authorization: "1716411376848_eric"
 
 {
 
-    "id": 4
+    "id": 5
     
 }
 

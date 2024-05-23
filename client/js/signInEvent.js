@@ -1,8 +1,15 @@
 window.onload = function () {
    
     document.getElementById('submitBtn').onclick = Login;
- 
+  
 };
+
+
+function loginForm(){
+    let html =``;
+    html+=``;
+    document.getElementById('login').innerHTML= html;
+}
 
 
 async function Login(e) {
@@ -20,8 +27,9 @@ async function Login(e) {
         if (response.status === 200) {
             const data = await response.json();
             localStorage.setItem('user', JSON.stringify(data));
-           
-            location.replace('/dashboard');
+            document.cookie = `token=${data.token}; path=/; max-age=${24*60*60}`;
+
+            location.replace('http://localhost:3000/dashboard');
         } else {
             alert("Username and password are not correct");
         }
