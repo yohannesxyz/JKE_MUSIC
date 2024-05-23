@@ -6,8 +6,8 @@ let ID=lastUser;
 
 
 
-module.exports = class {
-ructor(id,username,password,playlist,token) {
+module.exports = class User {
+constructor(id,username,password,playlist,token) {
         this.id=id;
         this.username=username;
         this.password=password;
@@ -17,10 +17,17 @@ ructor(id,username,password,playlist,token) {
 
 
     save(){
+let newUserName = userData.findIndex(u=>u.username==this.username);
+        if(newUserName==-1){
         this.id=++ID;
         this.token=Date.now()+"_"+this.username;
+        this.playlist=[];
         userData.push(this);
         return this;
+        }
+        else{
+            throw new Error('There is a user name already present in system')
+        }
     }
 
     static login(username,password){

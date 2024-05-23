@@ -1,14 +1,52 @@
 window.onload = function () {
-   
     document.getElementById('submitBtn').onclick = Login;
-  
+    // document.getElementById('signupBtn').onclick = Signup;
+    const signupForm = document.getElementById('signupForm');
+    signupForm.addEventListener('submit', function (event) {
+        const userName = document.getElementById('newUsername').value;
+        const password = document.getElementById('newPassword').value;
+        const repeatPassword = document.getElementById('repeatPassword').value;
+
+        if (password !== repeatPassword) {
+            event.preventDefault();
+            alert("Passwords do not match!");
+        }
+        else{
+            Signup(event);
+        }
+    });
 };
 
 
-function loginForm(){
-    let html =``;
-    html+=``;
-    document.getElementById('login').innerHTML= html;
+
+async function Signup(e) {
+    e.preventDefault();
+    const username = document.getElementById('newUsername').value;
+    const password = document.getElementById('newPassword').value;
+
+    try {
+        const response = await fetch('http://localhost:3000/user/create-user', {
+            method: 'POST',
+            body: JSON.stringify({ username, password }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (response.status === 201) {
+            const data = await response.json();
+            localStorage.setItem('user', JSON.stringify(data));
+            document.cookie = `token=${data.token}; path=/; max-age=${24*60*60}`;
+alert('You have successfully registered!')
+            location.replace('http://localhost:3000/dashboard');
+        } 
+        else {
+            const data = await response.json();
+
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
 }
 
 
@@ -37,4 +75,20 @@ async function Login(e) {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
     }
+}
+
+function openForm(evt, formName) {
+    const tablinks = document.getElementsByClassName("tablinks");
+    const sections = document.querySelectorAll("section");
+
+    for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = "none";
+    }
+
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(formName).style.display = "block";
+    evt.currentTarget.className += " active";
 }
