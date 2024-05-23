@@ -5,11 +5,10 @@ let musicDb = require('../Database/MusicDB');
 
 module.exports = class Music {
 
-    constructor(id, title, genre, publishedDate, artist) {
+    constructor(id, title, genre, artist) {
         this.id = id;
         this.title = title;
         this.genre = genre;
-        this.publishedDate = publishedDate;
         this.artist = artist;
     }
 
@@ -20,7 +19,7 @@ module.exports = class Music {
     static getPlaylist(userToken) {
         let authUser = userData.find(user => user.token == userToken);
         
-            // console.log(userData[0])
+          
 
         if (authUser) {
             return musicDb.filter(mu => authUser.playlist.includes(mu.id));
@@ -85,11 +84,7 @@ module.exports = class Music {
         }
     }
 
-    save() {
-        this.id = uuid.v4();
-        musicDb.push(this);
-        return this;
-    }
+
 
     static deleteById(id) {
         const index = musicDb.findIndex(b => b.id === id);
@@ -99,18 +94,9 @@ module.exports = class Music {
             musicDb.splice(index, 1);
             return temp;
         } else {
-            throw new Error(`No book found with Id: ${id}`);
+            throw new Error(`No music found with Id: ${id}`);
         }
     }
 
-    update(id) {
-        const index = musicDb.findIndex(p => p.id === id);
-        if (index > -1) {
-            this.id = id;
-            musicDb[index] = this;
-        } else {
-            throw new Error(`No book found with Id: ${id}`);
-        }
-    }
 
 }

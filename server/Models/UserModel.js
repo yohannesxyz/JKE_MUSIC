@@ -48,7 +48,7 @@ let newUserName = userData.findIndex(u=>u.username==this.username);
             return 'user logged out';
         }
         else{
-throw new error("There is no user with id: "+id);
+        throw new error("There is no user with id: "+id);
         }
     }
 

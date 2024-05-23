@@ -1,21 +1,36 @@
-let playMode = ['shuffle', 'repeatPlaylist', 'repeatSong', 'shuffleOff'];
-let currentModeIndex = 0;
+
+// INITIALIZATION OF THE VARIABLES
+let currentModeIndex = -1;
 let currentPlaylist = [];
 let allSongs = [];
-let songlist = true
-let currentMusic = 0;
+let songlist = true;
 let typeOfsequence = 0;
-let icons = ['normal-queue','repeat-all','repeat-once','shuffle'];
+let icons = ['normal-queue','repeat-all', 'repeat-once','shuffle'];
+let playMode = ['Off', 'repeatPlaylist', 'repeatSong','shuffle'];
 
+// PAGE INITIATION
+window.onload = function () {
+
+    document.getElementById('userTag').innerHTML = JSON.parse(localStorage.getItem('user')).username;
+
+    loadPlaylist();
+    loadMusic();
+    document.getElementById('logoutbtn').onclick = Logout;
+    togglePlayMode();
+};
+
+// TOGGLE PLAYMODE
 function togglePlayMode() {
     currentModeIndex = (currentModeIndex + 1) % playMode.length;
     const mode = playMode[currentModeIndex];
     const switchModeBtn = document.getElementById('switch-mode');
-
+    try{
     switch (mode) {
-        case 'shuffle':
-            typeOfsequence = 3;
-            switchModeBtn.innerHTML = '<img src="/images/shuffle.png" alt="Shuffle">';
+
+
+        case 'Off':
+            typeOfsequence = 0;
+            switchModeBtn.innerHTML = '<img src="/images/normal-queue.png" alt="Shuffle Off">';
             break;
         case 'repeatPlaylist':
             typeOfsequence = 1;
@@ -25,77 +40,80 @@ function togglePlayMode() {
             typeOfsequence = 2;
             switchModeBtn.innerHTML = '<img src="/images/repeat-once.png" alt="Repeat Song">';
             break;
-        case 'shuffleOff':
-            typeOfsequence = 0;
-            switchModeBtn.innerHTML = '<img src="/images/normal-queue.png" alt="Shuffle Off">';
+
+        case 'shuffle':
+            typeOfsequence = 3;
+            switchModeBtn.innerHTML = '<img src="/images/shuffle.png" alt="Shuffle">';
             break;
+
+      
     }
+}catch{
+    
+}
 }
 
-window.onload = function () {
-    loadPlaylist();
-    loadMusic();
-    document.getElementById('logoutbtn').onclick = Logout;
-};
 
-function playNext(id,mlist) {
-    let xing = mlist ? currentPlaylist: allSongs;
+// PLAY MUSIC LOGIC
+// PLAY NEXT
+function playNext(id, mlist) {
+    let xing = mlist ? currentPlaylist : allSongs;
     let index = xing.findIndex(p => p.id == id);
     switch (typeOfsequence) {
-        case 0: 
-            if( ++index != xing.length ){
-                playMusic(xing[index].title, xing[index].id,mlist,false, typeOfsequence);
+        case 0:
+            if (++index != xing.length) {
+                playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
             }
-            
+
             break;
-        case 1: // repeat playlist
+        case 1: 
             index = (index + 1) % xing.length;
-            playMusic(xing[index].title, xing[index].id ,mlist,false, typeOfsequence);
+            playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
             break;
-        case 2: // repeat song
-            playMusic(xing[index].title, xing[index].id ,mlist,false, typeOfsequence);
+        case 2: 
+            playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
             break;
-        case 3: // shuffle
+        case 3: 
             if (xing.length == 1) {
-                playMusic(xing[index].title, xing[index].id,mlist,false,typeOfsequence);
-            }else {
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * xing.length);
-                } while (randomIndex === index);
-                playMusic(xing[randomIndex].title, xing[randomIndex].id,mlist, false, typeOfsequence);
-            }
-            break;
-    }
-}
-
-
-
-function playPrev(id, mlist) {
-    let xing = mlist ? currentPlaylist: allSongs;
-    let index = xing.findIndex(p => p.id == id);
-    switch (typeOfsequence) {
-        case 0: // normal sequence
-            if (--index >= 0) {
-                playMusic(xing[index].title, xing[index].id,mlist, false, typeOfsequence);
-            }
-            break;
-        case 1: // repeat playlist
-            index = (index - 1 + xing.length) % xing.length;
-            playMusic(xing[index].title, xing[index].id,mlist, false, typeOfsequence);
-            break;
-        case 2: // repeat song
-            playMusic(xing[index].title, xing[index].id,mlist, false, typeOfsequence);
-            break;
-        case 3: // shuffle
-            if (xing.length == 1) {
-                playMusic(xing[index].title, xing[index].id,mlist, false, typeOfsequence);
+                playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
             } else {
                 let randomIndex;
                 do {
                     randomIndex = Math.floor(Math.random() * xing.length);
                 } while (randomIndex === index);
-                playMusic(xing[randomIndex].title, xing[randomIndex].id,mlist, false, typeOfsequence);
+                playMusic(xing[randomIndex].title, xing[randomIndex].id, mlist, false, typeOfsequence);
+            }
+            break;
+    }
+}
+
+
+// PLAY PREVIOUS
+function playPrev(id, mlist) {
+    let xing = mlist ? currentPlaylist : allSongs;
+    let index = xing.findIndex(p => p.id == id);
+    switch (typeOfsequence) {
+        case 0: 
+            if (--index >= 0) {
+                playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
+            }
+            break;
+        case 1: 
+            index = (index - 1 + xing.length) % xing.length;
+            playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
+            break;
+        case 2: 
+            playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
+            break;
+        case 3: 
+            if (xing.length == 1) {
+                playMusic(xing[index].title, xing[index].id, mlist, false, typeOfsequence);
+            } else {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * xing.length);
+                } while (randomIndex === index);
+                playMusic(xing[randomIndex].title, xing[randomIndex].id, mlist, false, typeOfsequence);
             }
             break;
     }
@@ -103,15 +121,15 @@ function playPrev(id, mlist) {
 
 
 
-
+// PLAY MUSIC
 function playMusic(title, id, musicList = false, first = false, icon = 0) {
 
-    
-    currentMusic = id;
+
+   
     const musicSection = document.getElementById('play-section');
     const autoPlay = first ? "" : "autoplay";
-    
-    
+
+
 
     let html = `<section class="player-controls" >
         <div class="controls">
@@ -128,9 +146,16 @@ function playMusic(title, id, musicList = false, first = false, icon = 0) {
         <button class="control-btn" id="switch-mode" onclick="togglePlayMode()"><img src="/images/${icons[icon]}.png" alt="Switch Mode"></button>
     </section>`;
     musicSection.innerHTML = html;
+
+    const audio = document.getElementById('audio-player');
+    audio.currentTime = 0;
+    if (!first) {
+        audio.play();
+    }
 }
 
 
+// LOGOUT
 async function Logout() {
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -155,11 +180,12 @@ async function Logout() {
             alert("Failed to logout");
         }
     } catch (error) {
-        console.error('Error:', error);
+
         alert('An error occurred. Please try again.');
     }
 }
 
+// LOAD ALL MUSIC
 function loadMusic() {
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -181,7 +207,7 @@ function loadMusic() {
                 songs.forEach(song => {
                     html += ` 
                 <tr>
-                    <th scope="row">${song.id}</th>
+                    <th scope="row" width="20vw"><img src="/images/music-note.png" alt="music" width="20vw" height="20vh"></th>
                     <td>${song.title}</td>
                     <td>${song.genre}</td>
                     <td>${song.artist}</td>
@@ -192,17 +218,18 @@ function loadMusic() {
                 </tr>
             `;
                 });
-                
+
                 document.getElementById('music-tbody').innerHTML = html;
-                playMusic(songs[0].title, songs[0].id,false, true);
-            });
+                playMusic(songs[0].title, songs[0].id, false, true);
+            })
     } catch (error) {
-        console.log(err)
         location.replace('/user/login');
     }
 
 }
 
+
+// LOAD PLAYLIST
 function loadPlaylist() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user || !user.token) {
@@ -229,7 +256,7 @@ function loadPlaylist() {
             songs.forEach(song => {
                 html += `
                 <tr>
-                    <th scope="row">${song.id}</th>
+                <th scope="row" width="20vw"><img src="/images/music-note.png" alt="music" width="20vw" height="20vh"></th>
                     <td>${song.title}</td>
                     <td>${song.genre}</td>
                     <td>${song.artist}</td>
@@ -250,40 +277,8 @@ function loadPlaylist() {
 
 
 
-function removeFromPlaylist(id) {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || !user.token) {
-        return;
-    }
-    fetch(`http://localhost:3000/music/playlist/${id}`, {
-        method: "DELETE",
-        headers: {
-            'Authorization': user.token
-        }
-    })
-        .then(response => response.json())
-        .then(() => {
-            loadPlaylist();
-        });
-}
 
-// function playMusic(id) {
-
-//     const audioElement = document.querySelector('#music-play audio');
-//     const songTitle = document.getElementById('song-title-play');
-
-//     songTitle.innerHTML = song.title;
-
-//     audioElement.src = `http://localhost:3000/songs/${id}.mp3`;
-//     audioElement.play();
-// }
-
-
-
-
-
-
-
+// ADD TO PLAYLIST
 async function addToPlaylists(button) {
 
     const id = button.id;
@@ -311,7 +306,7 @@ async function addToPlaylists(button) {
 
         document.getElementById('playlist-tbody').innerHTML += `
         <tr>
-            <th scope="row">${newMusic.id}</th>
+        <th scope="row" width="20vw"><img src="/images/music-note.png" alt="music" width="20vw" height="20vh"></th>
             <td>${newMusic.title}</td>
             <td>${newMusic.genre}</td>
             <td>${newMusic.artist}</td>
@@ -335,9 +330,8 @@ async function addToPlaylists(button) {
 
 
 
+// REMOVE FROM PLAYLIST
 async function removeFromPlaylist(button) {
-
-
 
     const id = button.id;
 
@@ -358,38 +352,3 @@ async function removeFromPlaylist(button) {
     }
 
 }
-
-
-
-// let playMode = ['shuffle', 'repeatPlaylist', 'repeatSong', 'shuffleOff'];
-// let currentModeIndex = 0;
-
-// function togglePlayMode() {
-//     currentModeIndex = (currentModeIndex + 1) % playMode.length;
-//     const mode = playMode[currentModeIndex];
-//     const switchModeBtn = document.getElementById('switch-mode');
-
-//     switch (mode) {
-//         case 'shuffle':
-//             typeOfsequence = 3;
-//             switchModeBtn.innerHTML = '<img src="/images/shuffle.png" alt="Shuffle">';
-//             break;
-//         case 'repeatPlaylist':
-//             typeOfsequence = 1
-//             switchModeBtn.innerHTML = '<img src="/images/repeat-all.png" alt="Repeat Playlist">';
-//             break;
-//         case 'repeatSong':
-//             typeOfsequence = 2
-//             switchModeBtn.innerHTML = '<img src="/images/repeat-once.png" alt="Repeat Song">';
-//             break;
-//         case 'shuffleOff':
-//             typeOfsequence = 0;
-//             switchModeBtn.innerHTML = '<img src="/images/normal-queue.png" alt="Shuffle Off">';
-//             break;
-//     }
-// }
-
-
-
-
-

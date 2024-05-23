@@ -1,5 +1,7 @@
 const user = require('../Models/UserModel');
-const path = require('path')
+const path = require('path');
+const userData = require('../Database/Users')
+
 exports.saveUser=(req,res,next)=>{
     const newUser= new user(null,req.body.username,req.body.password).save();
     res.status(201).json(newUser);
@@ -14,5 +16,29 @@ exports.logout=(req,res,next)=>{
 
 exports.getLoginPage = (req, res, next) => {
 
-    res.sendFile(path.join(__dirname,"..","..","client","html","index.html"))
+    try {
+
+        const token = req.headers.cookie.split('token=')[1].split(';')[0].trim();
+       
+
+        if (!token) {
+            res.sendFile(path.join(__dirname,"..","..","client","html","index.html"))
+        }
+
+        let authUser = userData.find(user => user.token === token);
+
+        if (authUser) {
+            res.redirect('/dashboard')
+        } else {
+            
+            res.sendFile(path.join(__dirname,"..",'..','client','html','index.html'));
+        }
+
+    } catch (error) {
+
+        res.sendFile(path.join(__dirname,"..","..","client","html","index.html"))
+        
+    }
+    
+     res.sendFile(path.join(__dirname,"..","..","client","html","index.html"))
 }

@@ -1,6 +1,7 @@
 window.onload = function () {
+
     document.getElementById('submitBtn').onclick = Login;
-    // document.getElementById('signupBtn').onclick = Signup;
+   
     const signupForm = document.getElementById('signupForm');
     signupForm.addEventListener('submit', function (event) {
         const userName = document.getElementById('newUsername').value;
@@ -18,7 +19,7 @@ window.onload = function () {
 };
 
 
-
+// Create Account
 async function Signup(e) {
     e.preventDefault();
     const username = document.getElementById('newUsername').value;
@@ -44,12 +45,13 @@ alert('You have successfully registered!')
             alert(data.message);
         }
     } catch (error) {
-        console.error('Error:', error);
+        
         alert('An error occurred. Please try again.');
     }
 }
 
 
+// Loging in logic
 async function Login(e) {
     e.preventDefault();
     const username = document.getElementById('username').value;
@@ -72,11 +74,12 @@ async function Login(e) {
             alert("Username and password are not correct");
         }
     } catch (error) {
-        console.error('Error:', error);
         alert('An error occurred. Please try again.');
     }
 }
 
+
+// Toggling forms
 function openForm(evt, formName) {
     const tablinks = document.getElementsByClassName("tablinks");
     const sections = document.querySelectorAll("section");
